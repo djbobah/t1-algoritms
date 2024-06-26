@@ -30,17 +30,14 @@
 function atm(line) {
   //разделяем сумму и имеющиеся наличные
   let [amount, cash] = line.split(";");
-  //разделяем строку на элементы
+  //разделяем строку с наличными на элементы
   const parts = cash.split(",");
-
-  // console.log("parts", parts);
 
   //создаем из частей массив объектов с парами {nominal:номинал купюры,quantity:количество}
   let denominations = parts.map((part) => {
     const temparr = part.split(":");
     return { nominal: Number(temparr[0]), quantity: Number(temparr[1]) };
   });
-  console.log("denominations", denominations);
 
   let resultStr = [];
   //перебираем полученный массив начиная с конца (с самой большой купюры)
@@ -61,8 +58,8 @@ function atm(line) {
   if (amount > 0) {
     return "Error: Not enough money";
   }
-
-  return resultStr.join(",");
+  //переворачиваем массив
+  return resultStr.reverse().join(",");
 }
 
 const input = "78;1:7,5:5,10:3,50:6,100:2";
